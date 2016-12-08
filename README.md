@@ -16,7 +16,7 @@ As I developed a Play application and the size of my codebase increased, I hit a
 4. The subprojects do not have a projects folder or anything in the conf folder except the routes file. The main project's (i.e fooapp) applicaton.conf covers all the subprojects. Each subjproject, however, will have its own build.sbt file. The difference between fooapp's build.sbt file and a subproject's build.sbt is that the project var is defined only in the fooapp build.sbt file. Assuming you had two subprojects, your fooapp build.sbt would look like this:
 
         lazy val submodule1 = (project in file("modules/submodule1")).enablePlugins(PlayJava, PlayEbean)
-        lazy val submodule2 = (project in file("modules/submodule")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1).aggregate(submodule1)
+        lazy val submodule2 = (project in file("modules/submodule2")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1).aggregate(submodule1)
         lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1,submodule2).aggregate(submodule1,submodule2)
 
     The SBT functions dependsOn and aggregate do the trick. dependsOn establishes the dependency and aggregate pulls it together as one app. SBT will then build from the bottom of the dependency chain up to the main fooapp.
