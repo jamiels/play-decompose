@@ -27,5 +27,6 @@ As I developed a Play application and the size of my codebase increased, I hit a
 
 6. Routes to the submodule are accessed by /submodule1 in the URL. So, for example, you have a route /loadUser in your routes.conf and /viewSubmodule1User in your submodule1-routes.conf, to access the route from your browser you would use /submodule1/viewSubmodule1User. This is handled automatically for you by Play. Assets are also accessed in a similar manner i.e. /submodule1/assets points to the /public folder in the submodule1 subproject.
 
+7. If you have any Ebean models in the subprojects, make sure to include the below in your build.sbt. I have chosen to store my subproject models in packages named according to the subproject, i.e. models.submodule1. 
 
-
+    playEbeanModels in Compile := Seq("models.submodule1.*")
