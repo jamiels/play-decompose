@@ -9,7 +9,7 @@ As I developed a Play application and the size of my codebase increased, I hit a
 
     git submodule add https://github.com/overridden/submodule1
 
-The way I use this is I add a modules folder in the root of my Play app (Let's call it fooapp) and then from within the modules folder I can clone a submodule. The main fooapp is unaffected by the addition of the module accept that Git is now aware that it is a submodule within the Git fooapp project. 
+    The way I use this is I add a modules folder in the root of my Play app (Let's call it fooapp) and then from within the modules folder I can clone a submodule. The main fooapp is unaffected by the addition of the module accept that Git is now aware that it is a submodule within the Git fooapp project. 
 
 3. SBT allows you to combine and aggregate subprojects (or submodules, in Git speak). The benefit of this is that you can aggregate controllers, views, models etc. as if they were are all a single app. I found this extremely useful. In fact, even the routes.conf file is aggregated as if there is one routes file (more on how to do this later, there are some things you need to do)
 
