@@ -15,9 +15,9 @@ As I developed a Play application and the size of my codebase increased, I hit a
 
 4. The subprojects do not have a projects folder or anything in the conf folder except the routes file. The main project's (i.e fooapp) applicaton.conf covers all the subprojects. Each subjproject, however, will have its own build.sbt file. The difference between fooapp's build.sbt file and a subproject's build.sbt is that the project var is defined only in the fooapp build.sbt file. Assuming you had two subprojects, your fooapp build.sbt would look like this:
 
-lazy val submodule1 = (project in file("modules/submodule1")).enablePlugins(PlayJava, PlayEbean)
-lazy val submodule2 = (project in file("modules/submodule")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1).aggregate(submodule1)
-lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1,submodule2).aggregate(submodule1,submodule2)
+        lazy val submodule1 = (project in file("modules/submodule1")).enablePlugins(PlayJava, PlayEbean)
+        lazy val submodule2 = (project in file("modules/submodule")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1).aggregate(submodule1)
+        lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1,submodule2).aggregate(submodule1,submodule2)
 
 The SBT functions dependsOn and aggregate do the trick. dependsOn establishes the dependency and aggregate pulls it together as one app. SBT will then build from the bottom of the dependency chain up to the main fooapp.
 
@@ -25,6 +25,7 @@ The SBT functions dependsOn and aggregate do the trick. dependsOn establishes th
 
 ->      /submodule1              				submodule1.Routes
 
-Routes to the submodule are accessed by /submodule1 in the URL. So, for example, you have a route /loadUser in your routes.conf and /viewSubmodule1User in your submodule1-routes.conf, to access the route from your browser you would use /submodule1/viewSubmodule1User. This is handled automatically for you by Play. Assets are also accessed in a similar manner i.e. /submodule1/assets points to the /public folder in the submodule1 subproject.
+6. Routes to the submodule are accessed by /submodule1 in the URL. So, for example, you have a route /loadUser in your routes.conf and /viewSubmodule1User in your submodule1-routes.conf, to access the route from your browser you would use /submodule1/viewSubmodule1User. This is handled automatically for you by Play. Assets are also accessed in a similar manner i.e. /submodule1/assets points to the /public folder in the submodule1 subproject.
+
 
 
