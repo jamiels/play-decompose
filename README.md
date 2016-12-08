@@ -23,7 +23,6 @@ The SBT functions dependsOn and aggregate do the trick. dependsOn establishes th
 
 5.  The routes file in each of the submodules cannot be named routes.conf and need to be renamed. I renamed mines to submodule1-routes.conf, submodule2-routes.conf, etc. In the routes file of the main app, you'll need to include the routes file of the submodules. This is easy to do and is done simply by placing this at the top of your routes file:
 
-##Inject submodule1 routes
 ->      /submodule1              				submodule1.Routes
 
 Routes to the submodule are accessed by /submodule1 in the URL. So, for example, you have a route /loadUser in your routes.conf and /viewSubmodule1User in your submodule1-routes.conf, to access the route from your browser you would use /submodule1/viewSubmodule1User. This is handled automatically for you by Play. Assets are also accessed in a similar manner i.e. /submodule1/assets points to the /public folder in the submodule1 subproject.
