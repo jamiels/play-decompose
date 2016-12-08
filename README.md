@@ -3,6 +3,18 @@ Sample illustrating how to decompose a Play app
 
 As I developed a Play application and the size of my codebase increased, I hit a point where the codebase became too large, unwieldly and difficult to maintain. In fact, in many ways, my code became a mishmosh of at least three apps that organically grew out of one. The realization that the each app was actually distinct and could be separated came some time after initially trying to save time by reusing common code. I looked at several different options to break out my single monolithic app into independent apps and components and finally settled on a strategy that used sbt's multiproject and git's submodules capabilities. Now I can have an app that depends on and reuses other Play apps and manage the lifecycle of each independently. Here's what I learned along the way and here is a redacted version of my boilerplate code that should allow you to get started on decomposing your app.
 
-1. SBT allows you to build multiple projects. It allows you to build from the bottom up, meaning your dependencies are compiled first and then the app that relies on the dependencies. SBT's doc here do a decent job of explaining how it does that.
+1. SBT allows you to build multiple projects. It allows you to build from the bottom up, meaning your dependencies are compiled first and then the app that relies on the dependencies. SBT's docs do a decent job of explaining how it does that. See here: http://www.scala-sbt.org/0.13/docs/Multi-Project.html
 
-http://www.scala-sbt.org/0.13/docs/Multi-Project.html
+2. Git allows you to check out submodules. This is very useful when you wish to selectively add common code or another Play subproject to your main project. The command is soemthing like this:
+
+git submodule add https://github.com/overridden/submodule1
+
+The way I use this is I add a modules folder in the root of my Play app (Let's call it fooapp) and then from within the modules folder I can clone a submodule. The main fooapp is unaffected by the addition of the module accept that Git is now aware that it is a submodule within the Git fooapp project. 
+
+3. SBT allows you to combine and aggregate subprojects (or submodules, in Git speak). The benefit of this is that you can aggregate controllers, views, models etc. as if they were are all a single app. I found this extremely useful. In fact, even the routes.conf file is aggregated as if there is one routes file (more on how to do this later, there are some things you need to do)
+
+4. The subprojects do not have a projects folder or anything in the conf folder except the routes file. The main project's (i.e fooapp) applicaton.conf covers all the subprojects. Each subjproject, however, will have its own build.sbt file. The difference between fooapp's build.sbt file and a subproject's build.sbt is that the project var is defined only in the fooapp build.sbt file. Assuming you had two subprojects, your fooapp build.sbt would look like this:
+
+lazy val submodule1 = (project in file("modules/submodule1")).enablePlugins(PlayJava, PlayEbean)
+lazy val submodule2 = (project in file("modules/submodule")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1).aggregate(submodule1)
+lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean).dependsOn(submodule1,submodule2).aggregate(submodule1,submodule2)
