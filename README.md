@@ -34,3 +34,7 @@ As I developed a Play application and the size of my codebase increased, I hit a
 7. If you have any Ebean models in the subprojects, make sure to include the below in your build.sbt. I have chosen to store my subproject models in packages named according to the subproject, i.e. models.submodule1. 
 
     playEbeanModels in Compile := Seq("models.submodule1.*")
+    
+Jamiel Sheikh
+hello@overridelabs.com
+
