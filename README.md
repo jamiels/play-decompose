@@ -37,6 +37,8 @@ As I developed a Play application and the size of my codebase increased, I hit a
 
     playEbeanModels in Compile := Seq("models.submodule1.*")
     
+8. Remember, there will be only one application.conf at the fooapp level. The conf folder in the subprojects do not containt an application.conf file but only a routes file.
+    
 Jamiel Sheikh
 hello@overridelabs.com
 
