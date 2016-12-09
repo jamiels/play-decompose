@@ -1,0 +1,3 @@
+[submodule "foobar/modules/submodule1"]
+	path = foobar/modules/submodule1
+	url = http://github.com/overridden/submodule1.git
