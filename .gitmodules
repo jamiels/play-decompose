@@ -1,3 +1,6 @@
 [submodule "foobar/modules/submodule1"]
 	path = foobar/modules/submodule1
 	url = http://github.com/overridden/submodule1.git
+[submodule "foobar/modules/submodule2"]
+	path = foobar/modules/submodule2
+	url = https://github.com/overridden/submodule2.git
