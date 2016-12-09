@@ -13,3 +13,5 @@ libraryDependencies ++= Seq(
   cache,
   javaWs
 )
+
+libraryDependencies += evolutions
