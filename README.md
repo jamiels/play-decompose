@@ -5,14 +5,16 @@ As I developed a Play application and the size of my codebase increased, I hit a
 
 1. SBT allows you to build multiple projects. It allows you to build from the bottom up, meaning your dependencies are compiled first and then the app that relies on the dependencies. SBT's docs do a decent job of explaining how it does that. See here: http://www.scala-sbt.org/0.13/docs/Multi-Project.html
 
-2. Git allows you to check out submodules. This is very useful when you wish to selectively add common code or another Play subproject to your main project. The command is soemthing like this:
+2. Git allows you to check out submodules. This is very useful when you wish to selectively add common code or another Play subproject to your main project. The command is something like this:
 
     git submodule add https://github.com/overridden/submodule1
 
     The way I use this is I add a modules folder in the root of my Play app (Let's call it fooapp) and then from within the modules folder I can clone a submodule. The main fooapp is unaffected by the addition of the module accept that Git is now aware that it is a submodule within the Git fooapp project. 
     
     https://github.com/overridden/play-decompose/tree/master/foobar
+    
     https://github.com/overridden/submodule1
+    
     https://github.com/overridden/submodule2
 
 3. SBT allows you to combine and aggregate subprojects (or submodules, in Git speak). The benefit of this is that you can aggregate controllers, views, models etc. as if they were are all a single app. I found this extremely useful. In fact, even the routes.conf file is aggregated as if there is one routes file (more on how to do this later, there are some things you need to do)
